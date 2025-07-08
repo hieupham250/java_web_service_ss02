@@ -9,10 +9,6 @@ INSERT INTO theater (name, address)
 VALUES ('CGV Vincom Center', '72 Lê Thánh Tôn, Quận 1'),
        ('Galaxy Nguyễn Du', '116 Nguyễn Du, Quận 1');
 
-INSERT INTO theater (name, address)
-VALUES ('CGV Vincom Center', '72 Lê Thánh Tôn, Quận 1'),
-       ('Galaxy Nguyễn Du', '116 Nguyễn Du, Quận 1');
-
 INSERT INTO screen_room (name, capacity, theater_id)
 VALUES ('Room 1', 100, 1),
        ('Room 2', 120, 1),
