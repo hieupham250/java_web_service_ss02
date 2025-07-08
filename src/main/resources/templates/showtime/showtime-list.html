@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách lịch chiếu</title>
+</head>
+<body>
+<h1>Danh sách lịch chiếu</h1>
+
+<a th:href="@{/showtimes/add}">Thêm lịch chiếu mới</a>
+
+<form method="get" action="#" style="margin-top: 20px; margin-bottom: 20px;">
+    <label>Phim:</label>
+    <select name="movieId">
+        <option value="">-- Tất cả --</option>
+        <option th:each="m : ${movies}"
+                th:value="${m.id}"
+                th:text="${m.title}"
+                th:selected="${selectedMovieId == m.id}"></option>
+    </select>
+
+    <label>Phòng chiếu:</label>
+    <select name="roomId">
+        <option value="">-- Tất cả --</option>
+        <option th:each="r : ${rooms}"
+                th:value="${r.id}"
+                th:text="${r.name}"
+                th:selected="${selectedRoomId == r.id}"></option>
+    </select>
+
+    <button type="submit">Lọc</button>
+    <a th:href="@{/showtimes}">Reset</a>
+</form>
+
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Phim</th>
+        <th>Phòng chiếu</th>
+        <th>Bắt đầu</th>
+        <th>Kết thúc</th>
+        <th>Số ghế trống</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${showtimes}">
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.movie.title}"></td>
+        <td th:text="${s.screenRoom.name}"></td>
+        <td th:text="${#temporals.format(s.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${#temporals.format(s.endTime, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${s.numberSeatEmpty}"></td>
+        <td>
+            <a th:href="@{'/showtimes/edit/' + ${s.id}}">Sửa</a>
+            <form th:action="@{'/showtimes/delete/' + ${s.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
